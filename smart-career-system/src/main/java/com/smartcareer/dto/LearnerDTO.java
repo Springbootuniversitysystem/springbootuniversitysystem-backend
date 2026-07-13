@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -19,7 +20,7 @@ public class LearnerDTO {
     private  Long id;
 
     @NotBlank(message = "ID number is required")
-    @Size(max = 13, message =  "Description is too long")
+    @Size(min = 13, max = 13, message =  "The ID number must be 13 digits long")
     private  String studentId;
 
     @NotBlank(message = "First name is required")
@@ -52,5 +53,9 @@ public class LearnerDTO {
 
     @NotBlank(message = "Career goal is required")
     private String careerGoal;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
 }
