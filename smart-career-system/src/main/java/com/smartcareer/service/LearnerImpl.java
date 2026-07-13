@@ -116,7 +116,6 @@ public class LearnerImpl implements  LearnerService{
 
         LearnerDTO learnerDTO = Helper.mapLearnerToDTO(learner);
 
-        return Response.success(learnerDTO, "Learner retrieved successfully."
-        );
+        return Response.success(learnerDTO, "Learner retrieved successfully.");
     }
 }
