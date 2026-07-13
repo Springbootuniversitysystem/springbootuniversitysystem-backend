@@ -32,5 +32,4 @@ public class Learner {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-
 }
