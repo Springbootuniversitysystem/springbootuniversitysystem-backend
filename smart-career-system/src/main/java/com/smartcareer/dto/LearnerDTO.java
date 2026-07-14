@@ -19,39 +19,39 @@ public class LearnerDTO {
 
     private  Long id;
 
-    @NotBlank(message = "ID number is required")
-    @Size(min = 13, max = 13, message =  "The ID number must be 13 digits long")
-    private  String studentId;
+    //@NotBlank(message = "ID number is required")
+   // @Size(min = 13, max = 13, message =  "The ID number must be 13 digits long")
+    private  String learnerId;
 
-    @NotBlank(message = "First name is required")
+    //@NotBlank(message = "First name is required")
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
+    //@NotBlank(message = "Last name is required")
     private String lastName;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
     private String email;
 
-    @NotBlank(message = "Phone number is required")
+    //@NotBlank(message = "Phone number is required")
     private String phoneNumber;
 
-    @NotNull(message = "Date of birth is required")
+    //@NotNull(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
-    @NotNull(message = "Gender is required")
+   // @NotNull(message = "Gender is required")
     private Gender gender;
 
-    @NotNull(message = "Grade is required")
+   // @NotNull(message = "Grade is required")
     private Grade grade;
 
-    @NotBlank(message = "Province is required")
+   // @NotBlank(message = "Province is required")
     private String province;
 
-    @NotBlank(message = "School name is required")
+    //@NotBlank(message = "School name is required")
     private String schoolName;
 
-    @NotBlank(message = "Career goal is required")
+    //@NotBlank(message = "Career goal is required")
     private String careerGoal;
 
     private LocalDateTime createdAt;
