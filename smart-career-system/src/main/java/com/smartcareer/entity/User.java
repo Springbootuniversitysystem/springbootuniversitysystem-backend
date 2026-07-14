@@ -45,8 +45,10 @@ public class User {
     @JoinColumn(name = "learner_id")
     private Learner learner;
 
-    @OneToOne
-    @JoinColumn(name = "universityProgramme_id")
+
+    // Links to  UniversityProgramme entity
+   @OneToOne
+   @JoinColumn(name = "programme_id")
     private UniversityProgramme universityProgramme;
 
 
