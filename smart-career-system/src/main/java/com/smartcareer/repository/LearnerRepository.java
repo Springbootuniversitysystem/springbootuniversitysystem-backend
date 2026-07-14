@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface LearnerRepository  extends JpaRepository<Learner,Long> {
 
     Optional<Learner>  findByEmail(String email);
-    Optional<Learner> findByStudentId(String studentId);
+    Optional<Learner> findByLearnerId(String LearnerId);
 
 }

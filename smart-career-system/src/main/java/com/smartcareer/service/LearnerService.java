@@ -13,5 +13,5 @@ public interface LearnerService {
    Response<LearnerDTO> updateLearner(Long id, LearnerDTO learnerDTO);
    Response<Void> deleteLearner(Long id);
    Response<LearnerDTO> findByEmail(String email);
-   Response<LearnerDTO> findByStudentId(String studentId);
+   Response<LearnerDTO> findByLearnerId(String learnerId);
 }

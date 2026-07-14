@@ -37,6 +37,8 @@ public class LearnerImpl implements  LearnerService{
         // Map Learner Entity back to LearnerDTO
         LearnerDTO savedLearnerDTO = Helper.mapLearnerToDTO(savedLearner);
 
+
+
         return Response.success(savedLearnerDTO, "Learner created successfully.");
     }
 
@@ -109,10 +111,10 @@ public class LearnerImpl implements  LearnerService{
     }
 
     @Override
-    public Response<LearnerDTO> findByStudentId(String studentId) {
-        Learner learner = learnerRepository.findByStudentId(studentId)
+    public Response<LearnerDTO> findByLearnerId(String learnerId) {
+        Learner learner = learnerRepository.findByLearnerId(learnerId)
                 .orElseThrow(() ->
-                        new LearnerNotFoundException("Learner with student ID '" + studentId + "' was not found."));
+                        new LearnerNotFoundException("Learner with student ID '" + learnerId + "' was not found."));
 
         LearnerDTO learnerDTO = Helper.mapLearnerToDTO(learner);
 

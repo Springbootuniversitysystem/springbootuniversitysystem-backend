@@ -69,11 +69,11 @@ public class LearnerController {
         return ResponseEntity.ok(response);
     }
 
-    //GET /api/v1/learners/student-id/{studentId}
-    @GetMapping("/student-id/{studentId}")
-    public  ResponseEntity<Response<LearnerDTO>> getLearnerByStudentId(@PathVariable String studentId)
+    //GET /api/v1/learners/student-id/{learnerId}
+    @GetMapping("/student-id/{learnerId}")
+    public  ResponseEntity<Response<LearnerDTO>> getLearnerByLearnerId(@PathVariable String learnerId)
     {
-        Response<LearnerDTO> response = learnerService.findByStudentId(studentId);
+        Response<LearnerDTO> response = learnerService.findByLearnerId(learnerId);
         return ResponseEntity.ok(response);
     }
 

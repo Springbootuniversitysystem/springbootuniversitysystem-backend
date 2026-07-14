@@ -1,6 +1,7 @@
 package com.smartcareer.service;
 
 import com.smartcareer.dto.LearnerDTO;
+import com.smartcareer.dto.RegisterRequestDTO;
 import com.smartcareer.entity.Learner;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class Helper {
         LearnerDTO learnerDTO = new LearnerDTO();
 
         learnerDTO.setId(learner.getId());
-        learnerDTO.setStudentId(learner.getStudentId());
+        learnerDTO.setLearnerId(learner.getLearnerId());
         learnerDTO.setFirstName(learner.getFirstName());
         learnerDTO.setLastName(learner.getLastName());
         learnerDTO.setEmail(learner.getEmail());
@@ -32,7 +33,7 @@ public class Helper {
     }
     public static void mapLearnerFromDTO(Learner learner, LearnerDTO learnerDTO) {
 
-        learner.setStudentId(learnerDTO.getStudentId());
+        learner.setLearnerId(learnerDTO.getLearnerId());
         learner.setFirstName(learnerDTO.getFirstName());
         learner.setLastName(learnerDTO.getLastName());
         learner.setEmail(learnerDTO.getEmail());
@@ -50,8 +51,8 @@ public class Helper {
     public static  void updateLearner(Learner learner, LearnerDTO learnerDTO)
     {
 
-        if (learnerDTO.getStudentId() != null) {
-            learner.setStudentId(learnerDTO.getStudentId());
+        if (learnerDTO.getLearnerId() != null) {
+            learner.setLearnerId(learnerDTO.getLearnerId());
         }
 
         if (learnerDTO.getFirstName() != null) {
@@ -96,5 +97,15 @@ public class Helper {
 
         learner.setUpdatedAt(LocalDateTime.now());
 
+    }
+
+    public static LearnerDTO mapRegisterRequestToLearnerDTO(RegisterRequestDTO request) {
+
+        LearnerDTO learnerDTO = new LearnerDTO();
+
+        learnerDTO.setEmail(request.getEmail());
+        learnerDTO.setPhoneNumber(request.getPhoneNumber());
+
+        return learnerDTO;
     }
 }
