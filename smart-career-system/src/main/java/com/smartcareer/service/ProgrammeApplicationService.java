@@ -49,4 +49,22 @@ public class ProgrammeApplicationService {
     public List<ProgrammeApplication> getLearnerApplications(Long learnerId) {
         return applicationRepository.findByLearnerId(learnerId);
     }
+    // NEW: Update application status (e.g., SAVED to APPLIED)
+    public ProgrammeApplication updateApplicationStatus(Long applicationId, String status) {
+        // NOTE: Ensure your repository is named 'applicationRepository'. Adjust if it is named something else like 'repository'.
+        ProgrammeApplication application = applicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+
+        // If your status in the entity is an Enum instead of a String, use ApplicationStatus.valueOf(status) here instead.
+        ApplicationStatus.valueOf(status);
+        return applicationRepository.save(application);
+    }
+
+    // NEW: Delete an application
+    public void deleteApplication(Long applicationId) {
+        ProgrammeApplication application = applicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+
+        applicationRepository.delete(application);
+    }
 }

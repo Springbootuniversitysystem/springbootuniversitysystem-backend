@@ -13,33 +13,44 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/applications")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*") // Allows React frontend to connect
 public class ProgrammeApplicationController {
 
     private final ProgrammeApplicationService applicationService;
 
-    // Endpoint to save a programme to a learner's tracker
+    // POST: Save an application
     @PostMapping("/save")
     public ResponseEntity<Response<ProgrammeApplication>> saveApplication(
             @RequestParam Long learnerId,
             @RequestParam Long programmeId) {
-
         ProgrammeApplication application = applicationService.saveProgrammeForLearner(learnerId, programmeId);
-
-        // FIX: Using Emmanuel's static success method. (Data first, Message second)
         Response<ProgrammeApplication> response = Response.success(application, "Programme successfully saved to tracker");
-
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    // Endpoint to view all saved programmes for a specific learner
+    // GET: View all applications for a learner
     @GetMapping("/learner/{learnerId}")
     public ResponseEntity<Response<List<ProgrammeApplication>>> getLearnerApplications(@PathVariable Long learnerId) {
-
         List<ProgrammeApplication> applications = applicationService.getLearnerApplications(learnerId);
-
-        // FIX: Using Emmanuel's static success method for the List. (Data first, Message second)
         Response<List<ProgrammeApplication>> response = Response.success(applications, "Applications retrieved successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    // PUT: Update application status (e.g., SAVED to APPLIED)
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Response<ProgrammeApplication>> updateApplicationStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+        ProgrammeApplication updatedApplication = applicationService.updateApplicationStatus(id, status);
+        Response<ProgrammeApplication> response = Response.success(updatedApplication, "Application status updated successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // DELETE: Withdraw/Remove an application
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<Void>> deleteApplication(@PathVariable Long id) {
+        applicationService.deleteApplication(id);
+        Response<Void> response = Response.success(null, "Application successfully withdrawn");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
