@@ -69,8 +69,8 @@ public class LearnerController {
         return ResponseEntity.ok(response);
     }
 
-    //GET /api/v1/learners/student-id/{learnerId}
-    @GetMapping("/student-id/{learnerId}")
+    //GET /api/v1/learners/learner-id/{learnerId}
+    @GetMapping("/learner-id/{learnerId}")
     public  ResponseEntity<Response<LearnerDTO>> getLearnerByLearnerId(@PathVariable String learnerId)
     {
         Response<LearnerDTO> response = learnerService.findByLearnerId(learnerId);

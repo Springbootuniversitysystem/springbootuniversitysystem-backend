@@ -19,21 +19,19 @@ public class LearnerDTO {
 
     private  Long id;
 
-    //@NotBlank(message = "ID number is required")
-   // @Size(min = 13, max = 13, message =  "The ID number must be 13 digits long")
     private  String learnerId;
 
-    //@NotBlank(message = "First name is required")
+    @NotBlank(message = "First name is required")
     private String firstName;
 
-    //@NotBlank(message = "Last name is required")
+    @NotBlank(message = "Last name is required")
     private String lastName;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
     private String email;
 
-    //@NotBlank(message = "Phone number is required")
+    @NotBlank(message = "Phone number is required")
     private String phoneNumber;
 
     //@NotNull(message = "Date of birth is required")
@@ -42,7 +40,7 @@ public class LearnerDTO {
    // @NotNull(message = "Gender is required")
     private Gender gender;
 
-   // @NotNull(message = "Grade is required")
+    @NotNull(message = "Grade is required")
     private Grade grade;
 
    // @NotBlank(message = "Province is required")

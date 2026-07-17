@@ -24,9 +24,6 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    public  String username;
-
-    @Column(nullable = false, unique = true)
     public  String email;
 
     @Column(nullable = false)
@@ -40,16 +37,6 @@ public class User {
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
-    @OneToOne
-    @JoinColumn(name = "learner_id")
-    private Learner learner;
-
-
-    // Links to  UniversityProgramme entity
-   @OneToOne
-   @JoinColumn(name = "programme_id")
-    private UniversityProgramme universityProgramme;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -5,6 +5,7 @@ import com.smartcareer.dto.RegisterRequestDTO;
 import com.smartcareer.entity.Learner;
 
 import java.time.LocalDateTime;
+import java.util.StringTokenizer;
 
 public class Helper {
 
@@ -105,6 +106,20 @@ public class Helper {
 
         learnerDTO.setEmail(request.getEmail());
         learnerDTO.setPhoneNumber(request.getPhoneNumber());
+        learnerDTO.setGrade(request.getGrade());
+        learnerDTO.setSchoolName(request.getSchoolName());
+
+        String[] names = request.getFullName().trim().split("\\s+", 2);
+
+        learnerDTO.setFirstName(names[0]);
+
+        if (names.length > 1) {
+            learnerDTO.setLastName(names[1]);
+        } else {
+            learnerDTO.setLastName("");
+        }
+
+
 
         return learnerDTO;
     }
