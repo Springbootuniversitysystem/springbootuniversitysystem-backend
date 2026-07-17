@@ -32,4 +32,8 @@ public class Learner {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
+
 }

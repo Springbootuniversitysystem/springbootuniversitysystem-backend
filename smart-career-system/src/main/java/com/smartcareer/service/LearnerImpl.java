@@ -2,9 +2,11 @@ package com.smartcareer.service;
 
 import com.smartcareer.dto.LearnerDTO;
 import com.smartcareer.entity.Learner;
+import com.smartcareer.entity.User;
 import com.smartcareer.exception.LearnerNotFoundException;
 import com.smartcareer.repository.LearnerRepository;
 import com.smartcareer.response.Response;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -120,4 +122,22 @@ public class LearnerImpl implements  LearnerService{
 
         return Response.success(learnerDTO, "Learner retrieved successfully.");
     }
+
+    //Create a learner
+    @Transactional
+    @Override
+    public Learner createLearnerEntity(LearnerDTO learnerDTO, User user) {
+
+        Learner learner = new Learner();
+
+        Helper.mapLearnerFromDTO(learner, learnerDTO);
+
+        learner.setCreatedAt(LocalDateTime.now());
+        learner.setUpdatedAt(LocalDateTime.now());
+
+        learner.setUser(user);
+
+        return learnerRepository.save(learner);
+    }
+
 }

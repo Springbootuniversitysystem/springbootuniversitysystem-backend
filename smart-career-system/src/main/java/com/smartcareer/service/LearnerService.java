@@ -1,6 +1,8 @@
 package com.smartcareer.service;
 
 import com.smartcareer.dto.LearnerDTO;
+import com.smartcareer.entity.Learner;
+import com.smartcareer.entity.User;
 import com.smartcareer.response.Response;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface LearnerService {
    Response<Void> deleteLearner(Long id);
    Response<LearnerDTO> findByEmail(String email);
    Response<LearnerDTO> findByLearnerId(String learnerId);
+
+   Learner createLearnerEntity(LearnerDTO learnerDTO, User user);
 }
