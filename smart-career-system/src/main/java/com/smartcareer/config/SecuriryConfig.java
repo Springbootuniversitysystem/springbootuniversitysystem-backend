@@ -2,7 +2,7 @@ package com.smartcareer.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartcareer.response.Response;
-import com.smartcareer.sercurity.JwtAuthFilter;
+import com.smartcareer.security.JwtAuthFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -67,10 +67,29 @@ public class SecuriryConfig {
                         //Link to Destiny's ProgrammesApplicationController
                         //For programmes
                         .requestMatchers(HttpMethod.DELETE,"/api/v1/applications/**")
-                        .hasAuthority("CAREER_ADVISOR")
+                        .hasAuthority("UNIVERSITY")
 
                         .requestMatchers(HttpMethod.GET,"/api/v1/applications/**")
                         .hasAnyAuthority("ADMIN","LEARNER","UNIVERSITY","CAREER_ADVISOR")
+
+
+                        // Link to CareerController
+                         // Create a career
+                        .requestMatchers(HttpMethod.POST, "/api/v1/careers/**")
+                        .hasAnyAuthority("CAREER_ADVISOR")
+
+                         // View careers
+                        .requestMatchers(HttpMethod.GET, "/api/v1/careers/**")
+                        .hasAnyAuthority("ADMIN", "LEARNER", "UNIVERSITY", "CAREER_ADVISOR")
+
+                        // Update a career
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/careers/**")
+                        .hasAuthority("CAREER_ADVISOR")
+
+                         // Delete a career
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/careers/**")
+                        .hasAnyAuthority("ADMIN","CAREER_ADVISOR" )
+
 
                         //Everything else
                         .anyRequest()

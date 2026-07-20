@@ -54,4 +54,10 @@ public class GlobalExceptionAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Response.error(400, ex.getMessage()));
     }
+    @ExceptionHandler(CareerNotFoundException.class)
+    public ResponseEntity<Response<Void>> handleCareerNotFound(CareerNotFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Response.error(404, ex.getMessage()));
+    }
 }
