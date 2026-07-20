@@ -1,4 +1,4 @@
-package com.smartcareer.sercurity;
+package com.smartcareer.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

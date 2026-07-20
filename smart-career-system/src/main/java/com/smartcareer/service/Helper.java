@@ -1,7 +1,9 @@
 package com.smartcareer.service;
 
+import com.smartcareer.dto.CareerDTO;
 import com.smartcareer.dto.LearnerDTO;
 import com.smartcareer.dto.RegisterRequestDTO;
+import com.smartcareer.entity.Career;
 import com.smartcareer.entity.Learner;
 
 import java.time.LocalDateTime;
@@ -123,4 +125,61 @@ public class Helper {
 
         return learnerDTO;
     }
+    // for career
+    public static void mapCareerFromDTO(Career career, CareerDTO dto) {
+
+        career.setCareerName(dto.getCareerName());
+        career.setDescription(dto.getDescription());
+        career.setResponsibilities(dto.getResponsibilities());
+        career.setRequiredSkills(dto.getRequiredSkills());
+        career.setIndustries(dto.getIndustries());
+        career.setAverageSalary(dto.getAverageSalary());
+        career.setStudyPath(dto.getStudyPath());
+    }
+
+    public static CareerDTO mapCareerToDTO(Career career) {
+
+        CareerDTO dto = new CareerDTO();
+
+        dto.setId(career.getId());
+        dto.setCareerName(career.getCareerName());
+        dto.setDescription(career.getDescription());
+        dto.setResponsibilities(career.getResponsibilities());
+        dto.setRequiredSkills(career.getRequiredSkills());
+        dto.setIndustries(career.getIndustries());
+        dto.setAverageSalary(career.getAverageSalary());
+        dto.setStudyPath(career.getStudyPath());
+
+        return dto;
+    }
+
+    public static  void updateCareer(Career career, CareerDTO careerDTO)
+    {
+        if(career.getId() != null) {
+            career.setId(career.getId());
+        }
+       if(careerDTO.getCareerName() != null) {
+           career.setCareerName(careerDTO.getCareerName());
+       }
+       if(careerDTO.getDescription() != null) {
+           career.setDescription(careerDTO.getDescription());
+       }
+       if(careerDTO.getResponsibilities() != null) {
+           career.setResponsibilities(careerDTO.getResponsibilities());
+       }
+       if(careerDTO.getRequiredSkills() != null){
+           career.setRequiredSkills(careerDTO.getRequiredSkills());
+       }
+       if(careerDTO.getIndustries() != null){
+           career.setIndustries(careerDTO.getIndustries());
+       }
+       if(careerDTO.getAverageSalary() != null) {
+           career.setAverageSalary(careerDTO.getAverageSalary());
+       }
+       if( careerDTO.getStudyPath() != null) {
+           career.setStudyPath(careerDTO.getStudyPath());
+       }
+
+    }
+
 }
