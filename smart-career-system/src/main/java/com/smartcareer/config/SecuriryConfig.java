@@ -90,6 +90,9 @@ public class SecuriryConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/careers/**")
                         .hasAnyAuthority("ADMIN","CAREER_ADVISOR" )
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/learners/profile")
+                        .hasAnyAuthority("ADMIN", "LEARNER", "UNIVERSITY", "CAREER_ADVISOR")
+
 
                         //Everything else
                         .anyRequest()
@@ -107,6 +110,7 @@ public class SecuriryConfig {
     {
         return new BCryptPasswordEncoder();
     }
+
 
 
 
