@@ -55,7 +55,8 @@ public class SecurityConfig { // <-- Typo fixed!
                         // Public GET endpoints for frontend UI
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/contact/info",
-                                "/api/v1/about/stats")
+                                "/api/v1/about/stats",
+                                "/api/v1/about/team") // <-- Added the new Team endpoint here!
                         .permitAll()
 
                         // for Admin
