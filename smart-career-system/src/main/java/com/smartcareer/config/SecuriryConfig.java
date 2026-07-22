@@ -90,9 +90,44 @@ public class SecuriryConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/careers/**")
                         .hasAnyAuthority("ADMIN","CAREER_ADVISOR" )
 
+                        //profile
                         .requestMatchers(HttpMethod.GET, "/api/v1/learners/profile")
                         .hasAnyAuthority("ADMIN", "LEARNER", "UNIVERSITY", "CAREER_ADVISOR")
 
+                        //
+                        .requestMatchers(HttpMethod.GET, "/api/v1/dashboard")
+                        .hasAnyAuthority("LEARNER","ADMIN")
+
+                        // Saved Programmes
+                        .requestMatchers(HttpMethod.POST, "/api/v1/saved-programmes/**")
+                        .hasAuthority("LEARNER")
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/saved-programmes/**")
+                        .hasAuthority("LEARNER")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/saved-programmes/**")
+                        .hasAuthority("LEARNER")
+
+
+                        // ==========================
+                        // University Programmes
+                        // ==========================
+
+                        // Create Programme
+                        .requestMatchers(HttpMethod.POST, "/api/v1/programmes")
+                        .hasAnyAuthority("UNIVERSITY", "ADMIN")
+
+                        // Update Programme
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/programmes/**")
+                        .hasAnyAuthority("UNIVERSITY", "ADMIN")
+
+                        // Delete Programme
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/programmes/**")
+                        .hasAnyAuthority("UNIVERSITY", "ADMIN")
+
+                        // View Programmes
+                        .requestMatchers(HttpMethod.GET, "/api/v1/programmes/**")
+                        .hasAnyAuthority("ADMIN", "LEARNER", "UNIVERSITY", "CAREER_ADVISOR")
 
                         //Everything else
                         .anyRequest()
