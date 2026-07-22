@@ -3,8 +3,10 @@ package com.smartcareer.service;
 import com.smartcareer.dto.CareerDTO;
 import com.smartcareer.dto.LearnerDTO;
 import com.smartcareer.dto.RegisterRequestDTO;
+import com.smartcareer.dto.UniversityProgrammeDTO;
 import com.smartcareer.entity.Career;
 import com.smartcareer.entity.Learner;
+import com.smartcareer.entity.UniversityProgramme;
 
 import java.time.LocalDateTime;
 import java.util.StringTokenizer;
@@ -125,7 +127,7 @@ public class Helper {
 
         return learnerDTO;
     }
-    // for career
+    //********************************* for career*******************************************
     public static void mapCareerFromDTO(Career career, CareerDTO dto) {
 
         career.setCareerName(dto.getCareerName());
@@ -180,6 +182,59 @@ public class Helper {
            career.setStudyPath(careerDTO.getStudyPath());
        }
 
+    }
+
+    //***************For UniversityProgramme***********************************
+    public static UniversityProgrammeDTO mapProgrammeToDTO(UniversityProgramme programme) {
+
+        UniversityProgrammeDTO dto = new UniversityProgrammeDTO();
+
+        dto.setId(programme.getId());
+        dto.setInstitutionName(programme.getInstitutionName());
+        dto.setFaculty(programme.getFaculty());
+        dto.setProgrammeName(programme.getProgrammeName());
+        dto.setMinimumAps(programme.getMinimumAps());
+        dto.setDescription(programme.getDescription());
+        dto.setApplicationDeadline(programme.getApplicationDeadline());
+
+        return dto;
+    }
+
+    public static void mapProgrammeFromDTO(UniversityProgramme programme, UniversityProgrammeDTO dto) {
+
+        programme.setInstitutionName(dto.getInstitutionName());
+        programme.setFaculty(dto.getFaculty());
+        programme.setProgrammeName(dto.getProgrammeName());
+        programme.setMinimumAps(dto.getMinimumAps());
+        programme.setDescription(dto.getDescription());
+        programme.setApplicationDeadline(dto.getApplicationDeadline());
+    }
+
+    public static void updateProgramme(UniversityProgramme programme, UniversityProgrammeDTO dto) {
+
+        if (dto.getInstitutionName() != null) {
+            programme.setInstitutionName(dto.getInstitutionName());
+        }
+
+        if (dto.getFaculty() != null) {
+            programme.setFaculty(dto.getFaculty());
+        }
+
+        if (dto.getProgrammeName() != null) {
+            programme.setProgrammeName(dto.getProgrammeName());
+        }
+
+        if (dto.getMinimumAps() != null) {
+            programme.setMinimumAps(dto.getMinimumAps());
+        }
+
+        if (dto.getDescription() != null) {
+            programme.setDescription(dto.getDescription());
+        }
+
+        if (dto.getApplicationDeadline() != null) {
+            programme.setApplicationDeadline(dto.getApplicationDeadline());
+        }
     }
 
 }
