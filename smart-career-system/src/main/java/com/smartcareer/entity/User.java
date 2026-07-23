@@ -1,6 +1,5 @@
 package com.smartcareer.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +21,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // 👇 ADDED THIS LINE TO SATISFY MYSQL
+    @Column(nullable = false, unique = true)
+    private String username;
 
     @Column(nullable = false, unique = true)
     public  String email;
@@ -51,9 +54,7 @@ public class User {
 
 
     @PrePersist //set automatically on first save
-
     public void prePersist() {
         createdAt = LocalDateTime.now();
     }
-
 }

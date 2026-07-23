@@ -53,13 +53,17 @@ public class AuthServiceImp  implements  AuthService{
                 .orElseThrow(() -> new RuntimeException("LEARNER role not found"));
 
         // Create User
+        // Create User
         User user = new User();
         user.setEmail(registerRequestDTO.getEmail());
+        user.setUsername(registerRequestDTO.getEmail()); // <-- THIS IS THE MISSING MAGIC LINE
         user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
         user.setPhone_number(registerRequestDTO.getPhoneNumber());
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
         user.setRoles(List.of(learnerRole));
+
+
 
         // Save User first
         user = userRepository.save(user);
