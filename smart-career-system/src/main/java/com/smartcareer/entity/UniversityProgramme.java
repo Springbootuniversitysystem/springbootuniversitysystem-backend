@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "university_programmes")
@@ -28,6 +30,13 @@ public class UniversityProgramme {
 
     @Column(nullable = false)
     private Integer minimumAps;
+
+    @OneToMany(
+            mappedBy = "programme",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProgrammeSubjectRequirement> subjectRequirements = new ArrayList<>();
 
     private String description;
 
