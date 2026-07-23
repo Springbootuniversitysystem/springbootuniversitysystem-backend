@@ -1,9 +1,13 @@
 package com.smartcareer.service;
 
+import com.smartcareer.dto.SubjectMarkDTO;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+
 public class ApsCalculatorService {
 
     /**
@@ -24,13 +28,14 @@ public class ApsCalculatorService {
     /**
      * Takes a list of percentages (e.g., from the Learner's top 6 subjects) and calculates the total APS.
      */
-    public int calculateTotalAps(List<Integer> subjectPercentages) {
-        int totalAps = 0;
+    public int calculateTotalAps(List<SubjectMarkDTO> subjectPercentages) {
 
-        for (Integer percentage : subjectPercentages) {
-            totalAps += convertPercentageToApsPoint(percentage);
+        int totalAps=0;
+        for(SubjectMarkDTO subjectMarkDTO: subjectPercentages )
+        {
+            totalAps+= convertPercentageToApsPoint(subjectMarkDTO.getPercentage());
+
         }
-
         return totalAps;
     }
 }
