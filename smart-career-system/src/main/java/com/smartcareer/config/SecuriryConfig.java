@@ -129,6 +129,12 @@ public class SecuriryConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/programmes/**")
                         .hasAnyAuthority("ADMIN", "LEARNER", "UNIVERSITY", "CAREER_ADVISOR")
 
+
+                        // Analyse learner marks
+                        .requestMatchers(HttpMethod.POST, "/api/v1/programmes/qualified")
+                        .hasAuthority("LEARNER")
+
+
                         //Everything else
                         .anyRequest()
                         .authenticated())
