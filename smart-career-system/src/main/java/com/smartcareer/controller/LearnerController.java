@@ -2,10 +2,14 @@ package com.smartcareer.controller;
 
 
 import com.smartcareer.dto.LearnerDTO;
+import com.smartcareer.entity.Learner;
+import com.smartcareer.entity.User;
 import com.smartcareer.response.Response;
+import com.smartcareer.service.Helper;
 import com.smartcareer.service.LearnerService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,6 +79,14 @@ public class LearnerController {
     {
         Response<LearnerDTO> response = learnerService.findByLearnerId(learnerId);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/profile")
+    public Response<LearnerDTO> getProfile(Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+
+        return learnerService.findByEmail(user.getEmail());
     }
 
 

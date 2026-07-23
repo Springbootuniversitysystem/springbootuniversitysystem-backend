@@ -60,4 +60,11 @@ public class GlobalExceptionAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Response.error(404, ex.getMessage()));
     }
+
+    @ExceptionHandler(UniversityProgrammeNotFoundEx.class)
+    public ResponseEntity<Response<Void>> handleUniversityProgrammeNotFound(UniversityProgrammeNotFoundEx ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Response.error(404, ex.getMessage()));
+    }
 }
