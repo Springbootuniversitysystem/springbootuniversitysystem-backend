@@ -1,14 +1,14 @@
 package com.smartcareer.service;
 
-import com.smartcareer.dto.CareerDTO;
-import com.smartcareer.dto.LearnerDTO;
-import com.smartcareer.dto.RegisterRequestDTO;
-import com.smartcareer.dto.UniversityProgrammeDTO;
+import com.smartcareer.dto.*;
 import com.smartcareer.entity.Career;
 import com.smartcareer.entity.Learner;
+import com.smartcareer.entity.ProgrammeSubjectRequirement;
 import com.smartcareer.entity.UniversityProgramme;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Helper {
@@ -197,6 +197,13 @@ public class Helper {
         dto.setDescription(programme.getDescription());
         dto.setApplicationDeadline(programme.getApplicationDeadline());
 
+        dto.setSubjectRequirements(
+                programme.getSubjectRequirements()
+                        .stream()
+                        .map(Helper::mapProgrammeSubjectRequirementToDTO)
+                        .toList()
+        );
+
         return dto;
     }
 
@@ -208,6 +215,16 @@ public class Helper {
         programme.setMinimumAps(dto.getMinimumAps());
         programme.setDescription(dto.getDescription());
         programme.setApplicationDeadline(dto.getApplicationDeadline());
+
+        List<ProgrammeSubjectRequirement> requirements =
+                dto.getSubjectRequirements()
+                        .stream()
+                        .map(Helper::mapProgrammeSubjectRequirementFromDTO)
+                        .toList();
+
+        requirements.forEach(r -> r.setProgramme(programme));
+
+        programme.setSubjectRequirements(requirements);
     }
 
     public static void updateProgramme(UniversityProgramme programme, UniversityProgrammeDTO dto) {
@@ -235,6 +252,47 @@ public class Helper {
         if (dto.getApplicationDeadline() != null) {
             programme.setApplicationDeadline(dto.getApplicationDeadline());
         }
+
+        if (dto.getSubjectRequirements() != null) {
+
+            List<ProgrammeSubjectRequirement> requirements =
+                    dto.getSubjectRequirements()
+                            .stream()
+                            .map(Helper::mapProgrammeSubjectRequirementFromDTO)
+                            .toList();
+
+            requirements.forEach(r -> r.setProgramme(programme));
+
+            programme.setSubjectRequirements(new ArrayList<>(requirements));
+        }
+
+
     }
 
+
+    //********************************For ProgrammeSubjectRequired****************************
+
+    public static ProgrammeSubjectRequirementDTO mapProgrammeSubjectRequirementToDTO(
+            ProgrammeSubjectRequirement requirement) {
+
+        ProgrammeSubjectRequirementDTO dto = new ProgrammeSubjectRequirementDTO();
+
+        dto.setId(requirement.getId());
+        dto.setSubjectName(requirement.getSubjectName());
+        dto.setMinimumPercentage(requirement.getMinimumPercentage());
+
+        return dto;
+    }
+
+    public static ProgrammeSubjectRequirement mapProgrammeSubjectRequirementFromDTO(
+            ProgrammeSubjectRequirementDTO dto) {
+
+        ProgrammeSubjectRequirement requirement = new ProgrammeSubjectRequirement();
+
+        requirement.setId(dto.getId());
+        requirement.setSubjectName(dto.getSubjectName());
+        requirement.setMinimumPercentage(dto.getMinimumPercentage());
+
+        return requirement;
+    }
 }
