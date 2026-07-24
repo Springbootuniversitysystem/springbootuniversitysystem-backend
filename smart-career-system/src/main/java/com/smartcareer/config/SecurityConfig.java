@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @Configuration
 @RequiredArgsConstructor
-public class SecuriryConfig {
+public class SecurityConfig {
 
    private  final JwtAuthFilter jwtAuthFilter;
    private final ObjectMapper objectMapper;
@@ -90,6 +90,13 @@ public class SecuriryConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/careers/**")
                         .hasAnyAuthority("ADMIN","CAREER_ADVISOR" )
 
+                        //Contact us /api/v1/contact
+                        .requestMatchers(HttpMethod.POST, "/api/v1/contact/message")
+                        .permitAll()
+
+                        //forgot password /api/auth/forgot-password
+                        .requestMatchers(HttpMethod.POST, "/api/auth/forgot-password")
+                        .permitAll()
 
                         //Everything else
                         .anyRequest()
