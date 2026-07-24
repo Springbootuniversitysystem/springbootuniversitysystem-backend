@@ -67,4 +67,37 @@ public class GlobalExceptionAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Response.error(404, ex.getMessage()));
     }
+
+    @ExceptionHandler(AboutUsPageNotFoundException.class)
+    public ResponseEntity<Response<Void>> handleAboutUsPageNotFoundException(AboutUsPageNotFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Response.error(404, ex.getMessage()));
+    }
+
+
+    @ExceptionHandler(CodeUsedException.class)
+    public ResponseEntity<Response<Void>> handleCodeUsedException(CodeUsedException ex) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Response.error(400, ex.getMessage()));
+    }
+
+    @ExceptionHandler(ExpiredCodeException.class)
+    public ResponseEntity<Response<Void>> handleExpiredCodeException(ExpiredCodeException ex) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Response.error(400, ex.getMessage()));
+    }
+
+
+
+    @ExceptionHandler(InvalidCodeException.class)
+    public ResponseEntity<Response<Void>> handleInvalidCodeException(InvalidCodeException ex) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Response.error(400, ex.getMessage()));
+    }
+
+
 }
