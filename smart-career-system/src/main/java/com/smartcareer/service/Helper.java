@@ -1,11 +1,9 @@
 package com.smartcareer.service;
 
 import com.smartcareer.dto.*;
-import com.smartcareer.entity.Career;
-import com.smartcareer.entity.Learner;
-import com.smartcareer.entity.ProgrammeSubjectRequirement;
-import com.smartcareer.entity.UniversityProgramme;
+import com.smartcareer.entity.*;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -302,4 +300,162 @@ public class Helper {
     public static String generateToken() {
         return UUID.randomUUID().toString();
     }
+
+    //****************************For About Page****************************
+
+    public static AboutPageDTO mapAboutPageToDTO(AboutPage page)
+    {
+
+        if (page == null) {
+            return null;
+        }
+
+        return AboutPageDTO.builder()
+                .id(1L) // Always the single About page
+                .heroTitle(page.getHeroTitle())
+                .heroSubtitle(page.getHeroSubtitle())
+                .missionHeading(page.getMissionHeading())
+                .missionBody1(page.getMissionBody1())
+                .missionBody2(page.getMissionBody2())
+                .tagYear(page.getTagYear())
+                .tagText(page.getTagText())
+                .teamTitle(page.getTeamTitle())
+
+                .metrics(
+                        page.getMetrics()
+                                .stream()
+                                .map(Helper::mapMetricToDTO)
+                                .toList()
+                )
+
+                .teamMembers(
+                        page.getTeamMembers()
+                                .stream()
+                                .map(Helper::mapTeamMemberToDTO)
+                                .toList()
+                )
+
+                .build();
+
+    }
+
+    public static void mapAboutPageFromDTO(AboutPage page, AboutPageDTO dto)
+    {
+
+        if (page == null || dto == null) {
+            return;
+        }
+
+        page.setId(1L);
+
+        page.setHeroTitle(dto.getHeroTitle());
+        page.setHeroSubtitle(dto.getHeroSubtitle());
+
+        page.setMissionHeading(dto.getMissionHeading());
+        page.setMissionBody1(dto.getMissionBody1());
+        page.setMissionBody2(dto.getMissionBody2());
+
+        page.setTagYear(dto.getTagYear());
+        page.setTagText(dto.getTagText());
+
+        page.setTeamTitle(dto.getTeamTitle());
+
+        // Map Metrics
+        if (dto.getMetrics() != null) {
+            page.setMetrics(
+                    dto.getMetrics()
+                            .stream()
+                            .map(Helper::mapMetricFromDTO)
+                            .toList()
+            );
+        }
+
+        // Map Team Members
+        if (dto.getTeamMembers() != null) {
+            page.setTeamMembers(
+                    dto.getTeamMembers()
+                            .stream()
+                            .map(Helper::mapTeamMemberFromDTO)
+                            .toList()
+            );
+        }
+
+    }
+
+    public static AboutMetric mapMetricFromDTO(MetricDTO dto) {
+
+        if (dto == null) {
+            return null;
+        }
+
+        return AboutMetric.builder()
+                .id(dto.getId())
+                .metricKey(dto.getMetricKey())
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .icon(dto.getIcon())
+                .displayOrder(dto.getDisplayOrder())
+                .build();
+    }
+
+    public static TeamMember mapTeamMemberFromDTO(TeamMemberDTO dto) {
+
+        if (dto == null) {
+            return null;
+        }
+
+        return TeamMember.builder()
+                .id(dto.getId())
+                .fullName(dto.getFullName())
+                .position(dto.getPosition())
+                .biography(dto.getBiography())
+                .initials(dto.getInitials())
+                .imageUrl(dto.getImageUrl())
+                .displayOrder(dto.getDisplayOrder())
+                .build();
+    }
+
+    public static MetricDTO mapMetricToDTO(AboutMetric metric) {
+
+        if (metric == null) {
+            return null;
+        }
+
+        return MetricDTO.builder()
+                .id(metric.getId())
+                .metricKey(metric.getMetricKey())
+                .title(metric.getTitle())
+                .description(metric.getDescription())
+                .icon(metric.getIcon())
+                .displayOrder(metric.getDisplayOrder())
+                .build();
+    }
+
+    public static TeamMemberDTO mapTeamMemberToDTO(TeamMember member) {
+
+        if (member == null) {
+            return null;
+        }
+
+        return TeamMemberDTO.builder()
+                .id(member.getId())
+                .fullName(member.getFullName())
+                .position(member.getPosition())
+                .biography(member.getBiography())
+                .initials(member.getInitials())
+                .imageUrl(member.getImageUrl())
+                .displayOrder(member.getDisplayOrder())
+                .build();
+    }
+
+    //Random number generator
+
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    public static String generateVerificationCode() {
+        int code = 100000 + RANDOM.nextInt(900000);
+        return String.valueOf(code);
+    }
+
+
 }
