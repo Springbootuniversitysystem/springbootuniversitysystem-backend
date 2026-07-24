@@ -21,9 +21,9 @@ public class EmailService {
         email.setFrom("noreply@demomailtrap.co");
         email.setReplyTo(message.getEmailAddress());
         email.setSubject(message.getSubject());
-        email.setText("Name: "+ message.getName() +
-                       " Email :" + message.getEmailAddress()+
-                       " Message :" +message.getMessage());
+        email.setText("Name : "+ message.getName() + "\n"+
+                       "Email : " + message.getEmailAddress()+  "\n"+
+                       "Message : " +message.getMessage());
 
 
         mailSender.send(email);

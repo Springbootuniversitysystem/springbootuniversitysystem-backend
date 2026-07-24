@@ -98,6 +98,24 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/forgot-password")
                         .permitAll()
 
+                        //For about us page
+                        .requestMatchers(HttpMethod.GET, "/api/v1/about/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/about/**").hasAuthority("ADMIN")
+
+
+                        // GET contacts info
+                        .requestMatchers(HttpMethod.GET, "/api/v1/contact/info")
+                        .permitAll()
+
+
+                       //Reset password /api/auth/verify-reset-code
+                        .requestMatchers(HttpMethod.POST, "/api/auth/verify-reset-code")
+                        .permitAll()
+
+                        // /api/auth/reset-password
+                        .requestMatchers(HttpMethod.POST, "/api/auth/reset-password")
+                        .permitAll()
+
                         //Everything else
                         .anyRequest()
                         .authenticated())
