@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.UUID;
 
 public class Helper {
 
@@ -294,5 +295,11 @@ public class Helper {
         requirement.setMinimumPercentage(dto.getMinimumPercentage());
 
         return requirement;
+    }
+
+   // *****************************UUID *****************************
+
+    public static String generateToken() {
+        return UUID.randomUUID().toString();
     }
 }

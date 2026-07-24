@@ -5,6 +5,8 @@ import com.smartcareer.entity.ContactMessage;
 import com.smartcareer.repository.ContactInfoRepository;
 import com.smartcareer.repository.ContactMessageRepository;
 import com.smartcareer.response.Response;
+import com.smartcareer.service.AceService;
+import com.smartcareer.service.EmailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,22 @@ public class ContactController {
 
     private final ContactMessageRepository messageRepository;
     private final ContactInfoRepository infoRepository;
+    private  final AceService  aceService;
+    private final EmailService emailService;
 
     // Public: User submitting the form
     @PostMapping("/message")
     public ResponseEntity<Response<ContactMessage>> sendMessage(@Valid @RequestBody ContactMessage message) {
         ContactMessage saved = messageRepository.save(message);
+
+        //send data to Ace
+       //  aceService.sendEmail(saved);
+
+
+        // Send email to support
+        emailService.sendContactMessage(saved);
+
+
         return ResponseEntity.ok(Response.success(saved, "Message sent successfully to PathFinder support."));
     }
 
