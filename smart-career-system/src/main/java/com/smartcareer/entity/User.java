@@ -22,7 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 👇 ADDED THIS LINE TO SATISFY MYSQL
+
     @Column(nullable = false, unique = true)
     private String username;
 
