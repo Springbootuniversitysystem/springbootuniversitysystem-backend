@@ -73,6 +73,15 @@ public class SecurityConfig {
                         .hasAnyAuthority("ADMIN","LEARNER","UNIVERSITY","CAREER_ADVISOR")
 
 
+                       // .requestMatchers(HttpMethod.GET,"/api/v1/programmes/eligible")
+                      //  .permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/programmes/**")
+                        .permitAll()
+
+
+
+
                         // Link to CareerController
                          // Create a career
                         .requestMatchers(HttpMethod.POST, "/api/v1/careers/**")

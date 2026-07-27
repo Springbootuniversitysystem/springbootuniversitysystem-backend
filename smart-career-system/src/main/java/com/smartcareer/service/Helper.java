@@ -150,6 +150,11 @@ public class Helper {
         dto.setIndustries(career.getIndustries());
         dto.setAverageSalary(career.getAverageSalary());
         dto.setStudyPath(career.getStudyPath());
+        dto.setProgrammeIds(
+                career.getProgrammes().stream()
+                        .map(UniversityProgramme::getId)
+                        .toList()
+        );
 
         return dto;
     }
@@ -195,6 +200,11 @@ public class Helper {
         dto.setMinimumAps(programme.getMinimumAps());
         dto.setDescription(programme.getDescription());
         dto.setApplicationDeadline(programme.getApplicationDeadline());
+        dto.setCareers(
+                programme.getCareers().stream()
+                        .map(Helper::mapCareerToDTO)
+                        .toList()
+        );
 
         dto.setSubjectRequirements(
                 programme.getSubjectRequirements()

@@ -1,5 +1,6 @@
 package com.smartcareer.service;
 
+import com.smartcareer.dto.CareerDTO;
 import com.smartcareer.dto.UniversityProgrammeDTO;
 import com.smartcareer.entity.UniversityProgramme;
 import com.smartcareer.exception.UniversityProgrammeNotFoundEx;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -103,5 +105,21 @@ public class UniversityProgrammeService {
         UniversityProgrammeDTO savedDTO = Helper.mapProgrammeToDTO(savedProgramme);
 
         return Response.success(savedDTO, "Programme successfully created");
+    }
+
+    //Get careers from course
+    public Response<List<CareerDTO>> getCareersByProgramme(Long programmeId) {
+
+        UniversityProgramme programme = repository.findById(programmeId)
+                .orElseThrow(() ->
+                        new RuntimeException("Programme not found"));
+
+        List<CareerDTO> careers = programme.getCareers()
+                .stream()
+                .map(Helper::mapCareerToDTO)
+                .toList();
+
+        return Response.success(careers,
+                "Careers retrieved successfully.");
     }
 }

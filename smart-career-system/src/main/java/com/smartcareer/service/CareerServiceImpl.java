@@ -2,8 +2,10 @@ package com.smartcareer.service;
 
 import com.smartcareer.dto.CareerDTO;
 import com.smartcareer.entity.Career;
+import com.smartcareer.entity.UniversityProgramme;
 import com.smartcareer.exception.CareerNotFoundException;
 import com.smartcareer.repository.CareerRepository;
+import com.smartcareer.repository.UniversityProgrammeRepository;
 import com.smartcareer.response.Response;
 import com.smartcareer.response.ResponsePage;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class CareerServiceImpl implements  CareerService{
 
     private  final CareerRepository careerRepository;
+    private final UniversityProgrammeRepository programmeRepository;
 
     @Override
     public Response<CareerDTO> createCareer(CareerDTO careerDTO) {
@@ -25,11 +29,29 @@ public class CareerServiceImpl implements  CareerService{
         if (careerRepository.existsByCareerName(careerDTO.getCareerName())) {
             throw new IllegalArgumentException("Career already exists");
         }
-
+       /*
         Career career = new Career();
         Helper.mapCareerFromDTO(career, careerDTO);
 
         Career savedCareer = careerRepository.save(career);
+        */
+
+        Career career = new Career();
+        Helper.mapCareerFromDTO(career, careerDTO);
+
+      // Fetch selected programmes
+        List<UniversityProgramme> programmes =
+                programmeRepository.findAllById(careerDTO.getProgrammeIds());
+
+       // Link them to the career
+        career.setProgrammes(programmes);
+
+        for (UniversityProgramme programme : programmes) {
+            programme.getCareers().add(career);
+        }
+
+        Career savedCareer = careerRepository.save(career);
+
 
         CareerDTO savedDTO= Helper.mapCareerToDTO(savedCareer);
 
@@ -65,6 +87,11 @@ public class CareerServiceImpl implements  CareerService{
         Optional<Career> career = careerRepository.findById(id);
         Career foundCareer= career.orElseThrow(()->new CareerNotFoundException("Career with id: "+id+"is not found"));
         Helper.updateCareer(foundCareer,careerDTO);
+
+        List<UniversityProgramme> programmes =
+                programmeRepository.findAllById(careerDTO.getProgrammeIds());
+
+        foundCareer.setProgrammes(programmes);
 
         Career updatedCareer = careerRepository.save(foundCareer);
 
