@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,6 +39,9 @@ public class CareerDTO {
 
   @NotBlank(message = "Study paths of the career are required")
   private String studyPath;
+
+  //To link careers with university programmes
+  private List<Long> programmeIds = new ArrayList<>();
 
 
 }

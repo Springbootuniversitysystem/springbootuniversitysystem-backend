@@ -41,4 +41,13 @@ public class UniversityProgramme {
     private String description;
 
     private LocalDate applicationDeadline;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "programme_career",
+            joinColumns = @JoinColumn(name = "programme_id"),
+            inverseJoinColumns = @JoinColumn(name = "career_id")
+    )
+    private List<Career> careers = new ArrayList<>();
 }

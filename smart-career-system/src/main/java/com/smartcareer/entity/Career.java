@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "careers")
 @Getter
@@ -25,5 +28,8 @@ public class Career {
     private String industries;
     private String averageSalary;
     private String studyPath;
+
+    @ManyToMany(mappedBy = "careers")
+    private List<UniversityProgramme> programmes = new ArrayList<>();
 
 }

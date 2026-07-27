@@ -1,11 +1,13 @@
 package com.smartcareer.dto;
 
+import com.smartcareer.entity.Career;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,4 +34,6 @@ public class UniversityProgrammeDTO {
     private String description;
 
     private LocalDate applicationDeadline;
+
+    private List<CareerDTO> careers = new ArrayList<>();
 }

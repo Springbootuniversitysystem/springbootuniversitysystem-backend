@@ -1,5 +1,6 @@
 package com.smartcareer.controller;
 
+import com.smartcareer.dto.CareerDTO;
 import com.smartcareer.dto.UniversityProgrammeDTO;
 import com.smartcareer.response.Response;
 import com.smartcareer.response.ResponsePage;
@@ -7,7 +8,10 @@ import com.smartcareer.service.UniversityProgrammeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/programmes")
@@ -64,5 +68,16 @@ public class UniversityProgrammeController {
         Pageable pageable = PageRequest.of(page, size);
 
         return programmeService.getEligibleProgrammes(aps, pageable);
+    }
+
+
+    @GetMapping("/{programmeId}/careers")
+    public ResponseEntity<Response<List<CareerDTO>>> getCareersByProgramme(
+            @PathVariable Long programmeId) {
+
+        Response<List<CareerDTO>> response =
+                programmeService.getCareersByProgramme(programmeId);
+
+        return ResponseEntity.ok(response);
     }
 }

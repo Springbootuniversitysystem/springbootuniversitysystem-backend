@@ -64,9 +64,27 @@ public class FilterProgrammesServiceImpl implements FilterProgrammesService {
 
             }
 
+
+        int totalMatches = qualifiedProgrammes.size();
+
+
+        if (qualifiedProgrammes.isEmpty()) {
+
+            qualifiedProgrammes = programmes.stream()
+                    .map(Helper::mapProgrammeToDTO)
+                    .toList();
+
+            // recommendation.setCourseName("Available Programmes");
+        }
+
         CourseRecommendationDTO recommendation = new CourseRecommendationDTO();
 
-        recommendation.setCourseName("Recommended Programmes");
+        if (totalMatches == 0) {
+            recommendation.setCourseName("Available Courses");
+        } else {
+            recommendation.setCourseName("Recommended Courses");
+        }
+
         recommendation.setProgrammes(qualifiedProgrammes);
 
         recommendation.setUniversities(
@@ -78,7 +96,7 @@ public class FilterProgrammesServiceImpl implements FilterProgrammesService {
         CareerAnalysisResponseDTO response = new CareerAnalysisResponseDTO();
 
         response.setAps(learnerAps);
-        response.setTotalMatches(qualifiedProgrammes.size());
+        response.setTotalMatches(totalMatches);
         response.setRecommendations(List.of(recommendation));
 
         return Response.success(response, "Analysis completed successfully.");
